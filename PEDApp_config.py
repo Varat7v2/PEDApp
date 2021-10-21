@@ -1,10 +1,11 @@
 #!/usr/bin/env python3
 
+FRAMEWORK = 'PYTORCH'	# Choose either 'TENSORFLOW' or 'PYTORCH'
 MODEL_TYPE = 'frozenGraph'
 
 ### FROZEN GRAPH --> PEDAPP
 FROZEN_GRAPH_PEDAPP = './models/ECD_MobileNetV2.pb'
-COMPONENTS_LABELS = './labels/PEDApp_labels.pbtxt'
+COMPONENTS_LABELS = './myTensorFlow/labels/PEDApp_labels.pbtxt'
 COMPONENTS_CLASSES = 9
 
 # ### YOLO-V2 and YOLO-TINY MODEL PARAMETERS
@@ -29,12 +30,12 @@ CAMERA_ID = 0
 VIDEO_INPUT = './videos/input.mov'
 # IMAGES_PATH = './../DATASET-ONLINE-DOWNLOADER/data/data_v1'
 VIDEO_OUTPUT = './outputs/PEDApp_{}.avi'.format(MODEL_TYPE)
-IMG_PATH = 'test2.jpg'
+IMG_PATH = 'images/test2.jpg'
 
 
 # ### PYTORCH CONFIGURATIONS - 80 CLASSES OD
-# OUTPUT='./outputs'
-# SOURCE='./yolor/inference/images/horses.jpg'
+# OUTPUT='./yolor/inference/output'
+# SOURCE='./yolor/inference/images/test2.jpg'
 # WEIGHTS='./models/yolor_p6.pt'
 # DEVICE='0' # CUDA DEVICE - 0,1,2,3 OR cpu
 # IMG_SIZE=1280 # INPUT IMAGE SIZE (PIXELS)

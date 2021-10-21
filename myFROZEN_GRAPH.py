@@ -10,8 +10,8 @@ import cv2
 
 import PEDApp_config as myconfig
 
-from utils import label_map_util
-from utils import visualization_utils_color as vis_util
+from myTensorFlow.utils import label_map_util
+from myTensorFlow.utils import visualization_utils_color as vis_util
 
 class FROZEN_GRAPH_INFERENCE:
     

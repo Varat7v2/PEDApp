@@ -35,6 +35,7 @@ class PYTORCH_INFERENCE(object):
         return list(filter(None, names))  # filter removes empty strings (such as last line)
 
     def detect(self, save_img=False):
+        print('DETECTING ...')
         out, source, weights, view_img, save_txt, imgsz, cfg, names = \
             self.opt.output, self.opt.source, self.opt.weights, self.opt.view_img, self.opt.save_txt, self.opt.img_size, self.opt.cfg, self.opt.names
         webcam = source == '0' or source.startswith('rtsp') or source.startswith('http') or source.endswith('.txt')
@@ -121,7 +122,34 @@ class PYTORCH_INFERENCE(object):
                         s += '%g %ss, ' % (n, names[int(c)])  # add to string
 
                     # Write results
+                    print('OUTPUTs:')
+                    objects = list()
                     for *xyxy, conf, cls in det:
+                        left = int(xyxy[0])
+                        top = int(xyxy[1])
+                        right = int(xyxy[2])
+                        bottom = int(xyxy[3])
+                        label = str(names[int(cls)])
+                        confidence = float(conf)
+                        width = right - left
+                        height = bottom - top
+                        center = (left + int((right-left)/2), top + int((bottom-top)/2))
+
+                        ### CREATING COMPONENTS DICTIONARY
+                        mydict = {
+                                    "width": width,
+                                    "height": height,
+                                    "left": left,
+                                    "right": right,
+                                    "top": top,
+                                    "bottom": bottom,
+                                    "confidence": confidence,
+                                    "label": label,
+                                    "center": center,
+                                    "model_type": 'PYTORCH',
+                                }
+                        objects.append(mydict)
+                        
                         if save_txt:  # Write to file
                             xywh = (xyxy2xywh(torch.tensor(xyxy).view(1, 4)) / gn).view(-1).tolist()  # normalized xywh
                             with open(txt_path + '.txt', 'a') as f:
@@ -163,6 +191,7 @@ class PYTORCH_INFERENCE(object):
                 os.system('open ' + save_path)
 
         print('Done. (%.3fs)' % (time.time() - t0))
+        return objects
 
 
 if __name__ == '__main__':
@@ -186,12 +215,17 @@ if __name__ == '__main__':
     
     detector = PYTORCH_INFERENCE(parser)
     
-    assert torch.cuda.is_available()
+    if torch.cuda.is_available():
+        print('INFO: Using CUDA device')
+    else:
+        print('WARNING: CUDA is not available!!!')
 
     with torch.no_grad():
-        if opt.update:  # update all models (to fix SourceChangeWarning)
-            for opt.weights in ['']:
-                detector.detect()
-                strip_optimizer(opt.weights)
-        else:
-            detector.detect()
+        components = detector.detect()
+        print(components)
+        # if opt.update:  # update all models (to fix SourceChangeWarning)
+        #     for opt.weights in ['']:
+        #         detector.detect()
+        #         strip_optimizer(opt.weights)
+        # else:
+        #     detector.detect()
