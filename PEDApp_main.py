@@ -11,6 +11,7 @@ import torch
 # from myFROZEN_GRAPH import FROZEN_GRAPH_INFERENCE
 from hough_line_transform_v5 import NODE_DETECTION
 from myPYTORCH_INFERENCE import PYTORCH_INFERENCE
+from myPySPICE import myPYSPICE
 
 import PEDApp_config as myconfig
 
@@ -53,9 +54,10 @@ if __name__ == "__main__":
     # tf_detector = FROZEN_GRAPH_INFERENCE(myconfig.FROZEN_GRAPH_PEDAPP)
     pt_detector = PYTORCH_INFERENCE(parser)
     node_det = NODE_DETECTION()
+    pyspice = myPYSPICE(myconfig.PROJECT_NAME)
 
     if myconfig.IMG_FLAG:
-        frame = cv2.imread(myconfig.IMG_PATH)
+        frame = cv2.imread(myconfig.SOURCE)
         frameDebug = frame.copy()
         gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
         im_height, im_width, im_channel = frame.shape
@@ -100,6 +102,7 @@ if __name__ == "__main__":
         node_dict = dict()
         for itr, node in enumerate(node1+node2):
             node_name = itr+1
+            # ### ASSIGNING NODE NUMBERED GREATER THAN '5' TO '0'
             # if node_name >= 5:
             #     node_name = 0
             node_dict[node_name] = node
@@ -118,16 +121,22 @@ if __name__ == "__main__":
             dist.remove(dist[min_arg])
             temp.remove(temp[min_arg])
             second_node = temp[np.argmin(dist)]
-            netlist_dict['{}'.format(idx)]=[[component['label']], [first_node, second_node]]
+            node_list = sorted([first_node, second_node]) 
+            netlist_dict['{}'.format(idx)]=[[component['label']], node_list]
+       
         # df = pd.DataFrame(netlist_dict)
         # print(df)
-        # print(netlist_dict)
+        print('NETLIST BEFORE:\n', netlist_dict)
+        # sys.exit(0)
         ### TODO: GENERATE NETLIST
-        for k, v in netlist_dict.items():
-            print(k, v)
+        # for k, v in netlist_dict.items():
+        #     print(k, v)
 
         ### TODO: IDENTIFY POWER CONVERTER
-        ### TODO: CIRCUIT ANALYSIS
+        
+        ### TODO: CIRCUIT SIMULATION
+        circuit, simulation_results = pyspice.simulate_ckt(netlist_dict)
+        print('\n\n CIRCUIT NETLIST \n', circuit, '\n SIMULATION RESULTS\n', simulation_results)
 
         if not myconfig.DEBUG_FLAG:
             cv2.imshow('Source', frame)

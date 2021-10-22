@@ -1,5 +1,7 @@
 #!/usr/bin/env python3
 
+PROJECT_NAME = 'UH_ECD'
+
 FRAMEWORK = 'PYTORCH'	# Choose either 'TENSORFLOW' or 'PYTORCH'
 MODEL_TYPE = 'frozenGraph'
 
@@ -30,7 +32,7 @@ CAMERA_ID = 0
 VIDEO_INPUT = './videos/input.mov'
 # IMAGES_PATH = './../DATASET-ONLINE-DOWNLOADER/data/data_v1'
 VIDEO_OUTPUT = './outputs/PEDApp_{}.avi'.format(MODEL_TYPE)
-IMG_PATH = 'images/test2.jpg'
+# IMG_PATH = 'images/test1.jpg'
 
 
 # ### PYTORCH CONFIGURATIONS - 80 CLASSES OD
@@ -47,7 +49,7 @@ IMG_PATH = 'images/test2.jpg'
 
 ### PYTORCH CONFIGURATIONS - PROJECT-ECD
 OUTPUT='./outputs'
-SOURCE='./images/test2.jpg'
+SOURCE='./images/test5.jpg'
 WEIGHTS='./models/ECD_YOLOR_PYTORCH.pt'
 DEVICE='0' # CUDA DEVICE - 0,1,2,3 OR cpu
 IMG_SIZE=1280 # INPUT IMAGE SIZE (PIXELS)
