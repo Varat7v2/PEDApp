@@ -127,13 +127,49 @@ if __name__ == "__main__":
         # df = pd.DataFrame(netlist_dict)
         # print(df)
         print('NETLIST BEFORE:\n', netlist_dict)
-        # sys.exit(0)
-        ### TODO: GENERATE NETLIST
-        # for k, v in netlist_dict.items():
-        #     print(k, v)
+       
+        BUCK_left, BUCK_right, BUCK_bottom = False, False, False
+        BOOST_left, BOOST_right, BOOST_bottom = False, False, False
+        BUCKBOOST_left, BUCKBOOST_right, BUCKBOOST_bottom = False, False, False
 
         ### TODO: IDENTIFY POWER CONVERTER
+        for branch, component_info in netlist_dict.items():
+            comp_name = component_info[0][0]
+            left_node = component_info[1][0]
+            right_node = component_info[1][1]
+
+            ### BUCK CONVERTER CHECK
+            if left_node == 2:
+                if right_node == 3:
+                    if comp_name == 'inductor':
+                        BUCK_right = True
+                    if comp_name == 'diode':
+                        BOOST_right = True
+                        BUCKBOOST_right = True # diode direction is different that of boost
+                if right_node == 6:
+                    if comp_name == 'diode':
+                        BUCK_bottom = True
+                    if comp_name=='switch' or comp_name=='transistor' or comp_name=='mosfet':
+                        BOOST_bottom = True
+                    if comp_name == 'inductor':
+                        BUCKBOOST_bottom = True
+            if right_node == 2:
+                if left_node == 1:
+                    if comp_name=='switch' or comp_name=='transistor' or comp_name=='mosfet':
+                        BUCK_left = True
+                        BUCKBOOST_left = True
+                    if comp_name == 'inductor':
+                        BUCKBOOST_left = True
         
+        if (BUCK_left and BUCK_right and BUCK_bottom):
+            print('Buck Converter')
+        elif (BOOST_left and BOOST_right and BOOST_bottom):
+            print('Boost Converter')
+        elif (BUCKBOOST_left and BUCKBOOST_right and BUCKBOOST_bottom):
+            print('Buck-Boost Converter')
+        else:
+            print('Unknown circuit')
+
         ### TODO: CIRCUIT SIMULATION
         circuit, simulation_results = pyspice.simulate_ckt(netlist_dict)
         print('\n\n CIRCUIT NETLIST \n', circuit, '\n SIMULATION RESULTS\n', simulation_results)
