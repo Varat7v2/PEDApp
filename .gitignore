@@ -4,7 +4,7 @@ bin-release/
 [Oo]bj/
 [Bb]in/
 models/
-__pycache__/
+__pycache__
 
 # Other files and folders
 .settings/
