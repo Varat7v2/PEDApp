@@ -7,3 +7,4 @@ Step 3: Run the main program ->`python PEDApp_main.py`
 This project has been trained on both TensorFlow (SSD MobileNet V2) and PyTorch (YOLOV5 and YOLOR) frameworks. For training the model, dataset have been prepared by ourselves and then annotated. Trained on YOLOR weights till 300 epcochs, model accuracy of 91% is achieved.
 
 ## Results
+![alt text](outputs/results.png)
