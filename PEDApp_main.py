@@ -123,10 +123,11 @@ if __name__ == "__main__":
             second_node = temp[np.argmin(dist)]
             node_list = sorted([first_node, second_node]) 
             netlist_dict['{}'.format(idx)]=[[component['label']], node_list]
-       
+
         # df = pd.DataFrame(netlist_dict)
         # print(df)
-        print('NETLIST BEFORE:\n', netlist_dict)
+        # sys.exit(0)
+        # print('NETLIST BEFORE:\n', netlist_dict)
        
         BUCK_left, BUCK_right, BUCK_bottom = False, False, False
         BOOST_left, BOOST_right, BOOST_bottom = False, False, False
@@ -173,6 +174,11 @@ if __name__ == "__main__":
         ### TODO: CIRCUIT SIMULATION
         circuit, simulation_results = pyspice.simulate_ckt(netlist_dict)
         print('\n\n CIRCUIT NETLIST \n', circuit, '\n SIMULATION RESULTS\n', simulation_results)
+
+        ### TODO: PCB DESIGN - PLACING COMPONENTS
+        # df_BOM = 
+
+        ### TODO: PCB DESIGN - AUTOROUTING
 
         if not myconfig.DEBUG_FLAG:
             cv2.imshow('Source', frame)

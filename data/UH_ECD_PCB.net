@@ -1,0 +1,77 @@
+(export (version D)
+### FIXED SECTION
+                                ### DESIGN BLOCK
+                                ### LIBRARIES BLOCK
+(libraries
+                                (library (logical Device)
+                                (uri /usr/share/kicad/library/Device.lib))
+                                (library (logical pspice)
+                                (uri /usr/share/kicad/library/pspice.lib)))
+### VARIABLE SECTION
+                                ### COMPONENT BLOCK
+(components
+### COMPONENT_1
+                                       (comp
+                                       (ref L1)
+                                       (value 92)
+                                       (footprint Inductor_THT:L_Axial_L5.3mm_D2.2mm_P10.16mm_Horizontal_Vishay_IM-1)
+                                       (datasheet ~)
+                                       (libsource (lib pspice) (part INDUCTOR) (description "Inductor symbol for simulation only"))
+                                       (sheetpath (names /) (tstamps /))
+                                       (tstamp 1))
+### COMPONENT_2
+                                       (comp
+                                       (ref V1)
+                                       (value 8)
+                                       (footprint Connector_PinHeader_2.54mm:PinHeader_1x02_P2.54mm_Vertical)
+                                       (datasheet ~)
+                                       (libsource (lib Simulation_SPICE) (part VDC) (description "Voltage source, DC"))
+                                       (sheetpath (names /) (tstamps /))
+                                       (tstamp 2))
+### COMPONENT_3
+                                       (comp
+                                       (ref C1)
+                                       (value 2)
+                                       (footprint Capacitor_THT:CP_Radial_D5.0mm_P2.50mm)
+                                       (datasheet ~)
+                                       (libsource (lib Device) (part C) (description "Unpolarized capacitor"))
+                                       (sheetpath (names /) (tstamps /))
+                                       (tstamp 3))
+### COMPONENT_4
+                                       (comp
+                                       (ref R1)
+                                       (value 32)
+                                       (footprint Resistor_THT:R_Axial_DIN0411_L9.9mm_D3.6mm_P15.24mm_Horizontal)
+                                       (datasheet ~)
+                                       (libsource (lib Device) (part R) (description Resistor))
+                                       (sheetpath (names /) (tstamps /))
+                                       (tstamp 4))
+### COMPONENT_5
+                                       (comp
+                                       (ref R2)
+                                       (value 30)
+                                       (footprint Resistor_THT:R_Axial_DIN0411_L9.9mm_D3.6mm_P15.24mm_Horizontal)
+                                       (datasheet ~)
+                                       (libsource (lib Device) (part R) (description Resistor))
+                                       (sheetpath (names /) (tstamps /))
+                                       (tstamp 5))
+### COMPONENT_6
+                                       (comp
+                                       (ref R3)
+                                       (value 57)
+                                       (footprint Resistor_THT:R_Axial_DIN0411_L9.9mm_D3.6mm_P15.24mm_Horizontal)
+                                       (datasheet ~)
+                                       (libsource (lib Device) (part R) (description Resistor))
+                                       (sheetpath (names /) (tstamps /))
+                                       (tstamp 6))
+### COMPONENT_7
+                                       (comp
+                                       (ref R4)
+                                       (value 11)
+                                       (footprint Resistor_THT:R_Axial_DIN0411_L9.9mm_D3.6mm_P15.24mm_Horizontal)
+                                       (datasheet ~)
+                                       (libsource (lib Device) (part R) (description Resistor))
+                                       (sheetpath (names /) (tstamps /))
+                                       (tstamp 7))
+)
+)

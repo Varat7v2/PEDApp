@@ -1,9 +1,9 @@
 *Generated netlist for the circuit diagram.
-L1 2 3 96
-V1 1 0 5
-C1 3 0 5
-R1 2 0 59
-R2 3 4 25
-R3 4 0 36
-R4 1 2 36
+L1 2 3 92
+V1 1 0 8
+C1 3 0 2
+R1 2 0 32
+R2 3 4 30
+R3 4 0 57
+R4 1 2 11
 .op

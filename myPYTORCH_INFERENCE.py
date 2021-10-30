@@ -21,7 +21,6 @@ from yolor.models.models import *
 from yolor.utils.datasets import *
 from yolor.utils.general import *
 
-
 import PEDApp_config as myconfig
 
 class PYTORCH_INFERENCE(object):
