@@ -31,49 +31,6 @@ def remove_components(gray, component):
 def euclidean_dist(component, node):
     return np.sqrt((node[0]-component[0])**2 + (node[1]-component[1])**2)
 
-def simulation_plots(analysis):
-    # fig1 = plt.figure(1, figsize=(20, 10))
-    # plt.figure(1)
-    # ax1 = plt.subplot(211)
-    # ax1.set_title('Switching Pulse')
-    # ax1.plot(analysis['Gate'])
-    # ax1.grid()
-    # plt.xlim([0, myconfig.X_LIMIT])
-
-    # ax2 = plt.subplot(212)
-    # ax2.set_title('Input | Output Waveforms')
-    # ax2.plot(analysis['4'], label='Vout')
-    # ax2.plot(analysis['2'], label='Vin')
-    # ax2.set_ylabel('Voltage (V)')
-    # ax2.set_xlabel('time')
-    # ax2.legend()
-    # ax2.grid()
-    # plt.xlim([0, myconfig.X_LIMIT])
-
-    # plt.tight_layout()
-    # fig1.savefig('simulation_results.png')
-
-    dict_V = dict()
-    dict_A = dict()
-    for node in analysis.nodes.values():
-        plt.figure()
-        dict_V[str(node)] = np.array(node)
-        arr = np.array(node)
-        plt.plot(range(arr.shape[0]), arr)
-        plt.xlim([0, myconfig.X_LIMIT])
-        plt.savefig('plots/voltage/{}.png'.format(str(node)))
-
-    for item, node in enumerate(analysis.branches.values()):
-        print(node)
-        plt.figure()
-        arr = np.array(node)
-        plt.plot(range(arr.shape[0]), arr)
-        dict_A[str(node)] = np.array(node)
-        plt.xlim([0, myconfig.X_LIMIT])
-        plt.savefig('plots/current/{}.png'.format(str(node)))
-
-    print('All voltage and current waveforms saved!!!')
-
 if __name__ == "__main__":
 
     ### PARSER INPUT ARGUMENTS - NOW ONLY FOR PYTORCH; LATER CAN BE MADE FLEXIBLE FOR OTHER MODELS
@@ -169,6 +126,8 @@ if __name__ == "__main__":
             netlist_dict['{}'.format(idx)]=[[component['label']], node_list]
 
         # df = pd.DataFrame(netlist_dict)
+        # print(df)
+        # sys.exit(0)
         # print('NETLIST BEFORE:\n', netlist_dict)
        
         BUCK_left, BUCK_right, BUCK_bottom = False, False, False
@@ -217,9 +176,14 @@ if __name__ == "__main__":
         ### TODO: CIRCUIT SIMULATION
         circuit, analysis = pyspice.simulate_ckt(netlist_dict)
         print('\n\n CIRCUIT NETLIST \n', circuit, '\n')
+        print('SIMULATION RESULT')
+        for node in analysis.nodes.values():
+                print('Node {}: {:4.2f} V'.format(str(node), float(node)))
+        for node in analysis.branches.values():
+            print('Node {}: {:5.5f} A'.format(str(node), float(node)))
 
         ### TODO: PLOT THE GRAPHS
-        simulation_plots(analysis)
+       
 
         # sys.exit()
         ### TODO: PCB DESIGN - PLACING COMPONENTS

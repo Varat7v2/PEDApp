@@ -1,9 +1,12 @@
 *Generated netlist for the circuit diagram.
-L1 2 3 92
-V1 1 0 8
-C1 3 0 2
-R1 2 0 32
-R2 3 4 30
-R3 4 0 57
-R4 1 2 11
-.op
+L1 2 3 120
+V1 1 0 21
+C1 3 0 577
+D1 2 0 1N4148
+R2 4 0 0.8485547322214142
+.lib /home/varat/Documents/LTspiceXVII/lib/cmp/standard.dio
+.options TEMP = 25C
+.options TNOM = 25C
+.tran 100m
+.model switch SW(Ron=1m Roff=100Meg Vt=0.5 Vh=0)
+.end

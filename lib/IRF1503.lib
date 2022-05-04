@@ -1,0 +1,33 @@
+* -- spice --
+* http://ltwiki.org/index.php?title=Standard.mos
+*
+*.model IRF1503 VDMOS(Rg=2.8 Vto=4 Rd=0.68m Rs=0.0m Rb=1.9m Kp=88 Cgdmax=5.6n Cgdmin=0.20n
+*                     Cgs=7.0n Cjo=5.3n Is=10p tt=71n mfg=International_Rectifier Vds=30 Ron=2.6m
+*                     Qg=130n)
+*
+*****************************************
+*
+* IRF1503
+
+.SUBCKT IRF1503 1 2
+
+VDMOS1 1 2 IRF1503
+*
+.MODEL IRF1503 VDMOS
++RG=2.8
++VTO=4
++RD=0.68E-3
++RS=0.0E-3
++RB=1.9E-3
++KP=88
++CGDMAX=5.6E-9
++CGDMIN=0.20E-9
++CGS=7.0E-9
++CJO=5.3E-9
++IS=10E-12
++TT=71E-9
++VDS=30
++RON=2.6E-3
++QG=130E-9
+.ENDS
+*

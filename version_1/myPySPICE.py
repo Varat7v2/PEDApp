@@ -66,9 +66,8 @@ class myPYSPICE(object):
         S_count = 0
         G_count = 0
         SW_count = 0
-        MOS_count = 0
-        IGBT_count = 0
-        BJT_count = 0
+        MOSFET_count = 0
+        TRANS_count = 0
 
         COMPONENT_COUNT = 0
         LABEL = list()
@@ -82,40 +81,20 @@ class myPYSPICE(object):
         TSTAMP = list()
         Diode_Type = '1N4148'
 
-        ### COMPONENTS LIBRARIES PATH
-        # libraries_path = find_libraries()
-        libraries_path = 'lib'
-        spice_library = SpiceLibrary(libraries_path)
-
         ### Transient conditions
         steptime=1@u_us
         switchingtime=50@u_ms
         finaltime=250@u_ms
 
-        ### MOSFET conditions
-        MOSFET_TYPE = 'irf150'
-        duty_cycle = float(random.randint(40, 60)) / 100     # ratio = Vout/Vin (As for now assumped; Need to modify later)
-        fs = random.randint(20, 50)@u_kHz                    # Switching frequency
-        Ts = fs.period
-        Ton = duty_cycle * Ts                                # T_ON
-
-        print('Dutycycle = ', duty_cycle)
-        print('Switching frequency = ', fs)
-
         ### DEFINE DIODE MODEL (Manual Method)
-        # DIODE_MODEL = '.model 1N4148 D (BV=110V IBV=0.0001V IS=4.352nA N=1.906 RS=0.6458Ohm)'
-        # circuit.model( Diode_Type, 'D',
-        #                IS=4.352@u_nA,
-        #                RS=0.6458@u_Ohm,
-        #                BV=110@u_V,
-        #                IBV=0.0001@u_V,
-        #                N=1.906)
+        DIODE_MODEL = '.model 1N4148 D (BV=110V IBV=0.0001V IS=4.352nA N=1.906 RS=0.6458Ohm)'
+        circuit.model( Diode_Type, 'D',
+                       IS=4.352@u_nA,
+                       RS=0.6458@u_Ohm,
+                       BV=110@u_V,
+                       IBV=0.0001@u_V,
+                       N=1.906)
 
-        print('\n\n'+ '*'*200)
-        print(netlist_dict)
-        print('*'*200+'\n\n')
-
-        print('\n\n'+ '*'*200)
         for k,v in netlist_dict.items():
             COMPONENT_COUNT += 1
             branch = k
@@ -135,14 +114,11 @@ class myPYSPICE(object):
             if terminal2 == 0:
                 terminal2 = circuit.gnd
 
-            ### DISPLAY COMPONENTS AND THEIR TERMINALS
-            # print(component + ': ' + str(terminal1) + ' ' + str(terminal2))
-
             ### RANDOM VALUES ASSIGNED TO THE COMPONENTS (LATER REPLACE BY TEXT RECOGNITION ALGO)
-            S_value = random.randint(15,24)      # value in Volts(V)
-            R_value = random.uniform(0.5, 2.5)     # value in Kilo ohms (kOhm)
-            L_value = random.randint(100, 300)     # value in micro henry (uH)
-            C_value = random.randint(400, 800)     # value in micro farads (uF)
+            S_value = random.randint(10,50)      # value in Volts(V)
+            R_value = random.randint(1,5)     # value in Kilo ohms (kOhm)
+            L_value = random.randint(1,100)     # value in micro henry (uH)
+            C_value = random.randint(1,100)     # value in micro farads (uF)
 
             LABEL.append(component)
             NODE_COORDS.append(tuple((terminal1, terminal2)))
@@ -174,8 +150,7 @@ class myPYSPICE(object):
                                     )
             elif component == 'resistor':
                 R_count += 1
-                circuit.R(R_count, terminal1, 'xr{}'.format(R_count), R_value@u_Ohm)
-                circuit.V('branch_R', 'xr{}'.format(R_count), terminal2, 0@u_V)
+                circuit.R(R_count, terminal1, terminal2, R_value@u_kOhm)
                 PySpice_netlist.write('R{} {} {} {}\n'.format(R_count, terminal1, terminal2, R_value))
                 VALUE.append(R_value)
                 REF.append('R{}'.format(R_count))
@@ -199,9 +174,7 @@ class myPYSPICE(object):
                                     )
             elif component == 'inductor':
                 L_count += 1
-                circuit.L(L_count, terminal1, 'xl{}'.format(L_count), L_value@u_uH)
-                # For current measurement purpose
-                circuit.V('branch_L', 'xl{}'.format(L_count), terminal2, 0@u_V)
+                circuit.L(L_count, terminal1, terminal2, L_value@u_uH)
                 PySpice_netlist.write('L{} {} {} {}\n'.format(L_count, terminal1, terminal2, L_value))
                 VALUE.append(L_value)
                 REF.append('L{}'.format(L_count))
@@ -221,14 +194,11 @@ class myPYSPICE(object):
                                                                 L_count,
                                                                 L_value,
                                                                 COMPONENT_COUNT,
-                                                            )
+                                                             )
                                     )
             elif component == 'capacitor':
-                # if C_count < 1:
-                #     IC=0V
                 C_count += 1
-                circuit.C(C_count, terminal1, 'xc{}'.format(C_count), C_value@u_uF)
-                circuit.V('branch_C', 'xc{}'.format(C_count), terminal2, 0@u_V)
+                circuit.C(C_count, terminal1, terminal2, C_value@u_uF)
                 PySpice_netlist.write('C{} {} {} {}\n'.format(C_count, terminal1, terminal2, C_value))
                 VALUE.append(C_value)
                 REF.append('C{}'.format(C_count))
@@ -251,59 +221,18 @@ class myPYSPICE(object):
                                                              )
                                     )
             elif component == 'diode':
-                if D_count < 1:
-                    DIODE_TYPE = '1N4002'
-                    circuit.include(spice_library[DIODE_TYPE])
                 D_count += 1
-                circuit.X('D{}'.format(D_count), DIODE_TYPE, terminal1, 'xd{}'.format(D_count))
-                circuit.V('branch_D', 'xd{}'.format(D_count), terminal2, 0@u_V)
-                # circuit.Diode(D_count, terminal1, terminal2, model=Diode_Type)
-                PySpice_netlist.write('D{} {} {} 1N4148\n'.format(D_count, terminal1, terminal2))
-            
-            elif component == 'mosfet' or component == 'switch':
-                if MOS_count < 1:
-                    circuit.include(spice_library[MOSFET_TYPE])
-                MOS_count += 1
-                R_count += 1
-                circuit.X('Q{}'.format(MOS_count), MOSFET_TYPE, terminal1, 'Gate', 'xmos{}'.format(MOS_count))
-                circuit.V('branch_mos', 'xmos{}'.format(MOS_count), terminal2, 0@u_V)
-                circuit.R(R_count, 'Gate', 'Clock', 1@u_Ω)
-                circuit.PulseVoltageSource('Pulse',             # Name
-                                           'Clock',             # Node +ve
-                                           circuit.gnd,         # Node -ve
-                                           initial_value=0,
-                                           pulsed_value=S_value,
-                                           pulse_width=Ton,
-                                           period=Ts)
-            elif False:
-            # elif component == 'switch':
-                # if SW_count < 1:
-                #     ### Modelling SWITCH
-                S_count += 1
-                R_count += 1
-                SW_count += 1
-                circuit.model('switch', 'SW', Ron=1@u_mΩ, Roff=1@u_GΩ)
-                circuit.PulseVoltageSource(S_count, 'posA', circuit.gnd, initial_value=0, pulsed_value=1,
-                                           pulse_width=finaltime, period=finaltime, delay_time=switchingtime)
-                circuit.R('testA', 'posA', circuit.gnd, 1@u_kΩ)
-                #### VoltageControlledSwitch(name, n+, n-, nc+, nc-, model)
-                circuit.VoltageControlledSwitch(SW_count, terminal1, terminal2, 'posA', circuit.gnd, model='switch')
-                PySpice_netlist.write('R{} posA 0 1k\n'.format(R_count))
-                PySpice_netlist.write('S{} {} {} posA 0 SW\n'.format(SW_count, terminal1, terminal2))
-                PySpice_netlist.write('V{} {} {} PULSE(0 1 50m 1u 1u 250m 250m)\n'.format(S_count, 'posA', circuit.gnd))
-
+                circuit.Diode(D_count, terminal1, terminal2, model=Diode_Type)
+                PySpice_netlist.write('D{} {} {} {}\n'.format(D_count, terminal1, terminal2, Diode_Type))
+            elif component == 'mosfet':
+                pass
+            elif component == 'switch':
+                pass
             elif component == 'transistor':
                 pass
-
-        ### FOR THE TEST PURPOSE ONLY ### TODO: REMOVE LATER
-        circuit.R('test', 3, 4, 0.5@u_Ohm)
-        print('*'*200+'\n\n')
-        
-        PySpice_netlist.write('.lib /home/varat/Documents/LTspiceXVII/lib/cmp/standard.dio\n')
+        PySpice_netlist.write('{}\n'.format(DIODE_MODEL))
         PySpice_netlist.write('.options TEMP = 25C\n')
         PySpice_netlist.write('.options TNOM = 25C\n')
-        PySpice_netlist.write('.tran 100m\n')
-        PySpice_netlist.write('.model switch SW(Ron=1m Roff=100Meg Vt=0.5 Vh=0)\n')
         PySpice_netlist.write('.end')
         PySpice_netlist.close()
         print('INFO: Netlist for the circuit diagram written!!!')
@@ -320,17 +249,12 @@ class myPYSPICE(object):
         ### RUN ANALYSIS
         if myconfig.ANALYSIS == 'OPERATING_POINT':
             analysis = simulator.operating_point()
-            print('SIMULATION RESULT')
-            for node in analysis.nodes.values():
-                print('Node {}: {:4.2f} V'.format(str(node), float(node)))
-            for node in analysis.branches.values():
-                print('Node {}: {:5.5f} A'.format(str(node), float(node)))
-
         if myconfig.ANALYSIS == 'TRANSIENT':
-            IC=0@u_V
-            # simulator.initial_condition(output=IC)
-            analysis = simulator.transient(step_time=Ts/150, end_time=Ts*300)
-            
+            Ic=0@u_V
+            simulator.initial_condition(output=Ic)
+            analysis = simulator.transient(step_time=steptime, end_time=finaltime)
+            print(analysis)
+
         return circuit, analysis
 
 if __name__ == '__main__':

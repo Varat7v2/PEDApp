@@ -5,6 +5,7 @@ bin-release/
 [Bb]in/
 models/
 __pycache__
+FreeRouting_Example
 
 # Other files and folders
 .settings/

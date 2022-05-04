@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 
 PROJECT_NAME = 'UH_ECD'
-ANALYSIS = 'TRANSIENT' # 1)OPERATING_POINT, 2)TRANSIENT, 3)AC_ANALYSIS, 4)DC_SWEEP
+ANALYSIS = 'OPERATING_POINT' # 1)OPERATING_POINT, 2)TRANSIENT, 3)AC_ANALYSIS, 4)DC_SWEEP
 
 FRAMEWORK = 'PYTORCH'	# Choose either 'TENSORFLOW' or 'PYTORCH'
 MODEL_TYPE = 'frozenGraph'
@@ -50,7 +50,7 @@ VIDEO_OUTPUT = './outputs/PEDApp_{}.avi'.format(MODEL_TYPE)
 
 ### PYTORCH CONFIGURATIONS - PROJECT-ECD
 OUTPUT='./outputs'
-SOURCE='./images/test2.jpg'
+SOURCE='./images/test5.jpg'
 WEIGHTS='./models/ECD_YOLOR_PYTORCH.pt'
 DEVICE='0' # CUDA DEVICE - 0,1,2,3 OR cpu
 IMG_SIZE=1280 # INPUT IMAGE SIZE (PIXELS)
@@ -58,30 +58,3 @@ CONFIG_YOLOR='./data/yolor_p6_ecd.cfg' # MODEL CONFIG FILE
 NAMES='./data/ecd.names' # CLASSES NAME LISTS
 IOU_THRESHOLD=0.5 # IOU THRESHOLD FOR NMS
 CONFIDENCE_THRESHOLD=0.4 # OBJECT CONFIDENCE THRESHOLD
-
-
-### GITHUB PUSH CONFIGURATION
-IGNORE_FOLDERS = [
-                      'FreeRouting_Example',
-                      'models',
-                      '__pycache__',
-                      'yolor',
-                      'git_push.sh',
-                      'get_size.py',
-                      'pyspice_examples.py',
-                      'test_design.py',
-                      'rawread.py',
-                      'readFile.py',
-                      'skidl_examples.py',
-                      'skidl_examples_lib_sklib.py',
-                      'skidl_lib_sklib.py',
-                      'pyspice_examples.py',
-                      'pcbnew_layout.py',
-                      'images',
-                      'plots',
-                      'version_1',
-                 ]
-
-
-### PLOT Configurations
-X_LIMIT = 200000
