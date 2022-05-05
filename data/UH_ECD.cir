@@ -1,9 +1,9 @@
 *Generated netlist for the circuit diagram.
-L1 2 3 120
-V1 1 0 21
-C1 3 0 577
+L1 2 3 290
+V1 1 0 22
+C1 3 0 593
 D1 2 0 1N4148
-R2 4 0 0.8485547322214142
+R2 4 0 2.3891737176258117
 .lib /home/varat/Documents/LTspiceXVII/lib/cmp/standard.dio
 .options TEMP = 25C
 .options TNOM = 25C
