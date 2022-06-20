@@ -48,9 +48,9 @@ class myPYSPICE(object):
                                ### LIBRARIES BLOCK\n')
         PCBNEW_netlist.write('(libraries\n \
                                (library (logical Device)\n \
-                               (uri /usr/share/kicad/library/Device.lib))\n \
+                               (uri /usr/share/kicad/library/Device.libraries))\n \
                                (library (logical pspice)\n \
-                               (uri /usr/share/kicad/library/pspice.lib)))\n')
+                               (uri /usr/share/kicad/library/pspice.libraries)))\n')
         PCBNEW_netlist.write('### VARIABLE SECTION\n \
                                ### COMPONENT BLOCK\n')
         PCBNEW_netlist.write('(components\n')
@@ -140,7 +140,7 @@ class myPYSPICE(object):
                                       (value {})\n \
                                       (footprint Connector_PinHeader_2.54mm:PinHeader_1x02_P2.54mm_Vertical)\n \
                                       (datasheet ~)\n \
-                                      (libsource (lib Simulation_SPICE) (part VDC) (description "Voltage source, DC"))\n \
+                                      (libsource (libraries Simulation_SPICE) (part VDC) (description "Voltage source, DC"))\n \
                                       (sheetpath (names /) (tstamps /))\n \
                                       (tstamp {}))\n'.format(   COMPONENT_COUNT,
                                                                 S_count,
@@ -164,7 +164,7 @@ class myPYSPICE(object):
                                       (value {})\n \
                                       (footprint Resistor_THT:R_Axial_DIN0411_L9.9mm_D3.6mm_P15.24mm_Horizontal)\n \
                                       (datasheet ~)\n \
-                                      (libsource (lib Device) (part R) (description Resistor))\n \
+                                      (libsource (libraries Device) (part R) (description Resistor))\n \
                                       (sheetpath (names /) (tstamps /))\n \
                                       (tstamp {}))\n'.format(   COMPONENT_COUNT,
                                                                 R_count,
@@ -188,7 +188,7 @@ class myPYSPICE(object):
                                       (value {})\n \
                                       (footprint Inductor_THT:L_Axial_L5.3mm_D2.2mm_P10.16mm_Horizontal_Vishay_IM-1)\n \
                                       (datasheet ~)\n \
-                                      (libsource (lib pspice) (part INDUCTOR) (description "Inductor symbol for simulation only"))\n \
+                                      (libsource (libraries pspice) (part INDUCTOR) (description "Inductor symbol for simulation only"))\n \
                                       (sheetpath (names /) (tstamps /))\n \
                                       (tstamp {}))\n'.format(   COMPONENT_COUNT,
                                                                 L_count,
@@ -212,7 +212,7 @@ class myPYSPICE(object):
                                       (value {})\n \
                                       (footprint Capacitor_THT:CP_Radial_D5.0mm_P2.50mm)\n \
                                       (datasheet ~)\n \
-                                      (libsource (lib Device) (part C) (description "Unpolarized capacitor"))\n \
+                                      (libsource (libraries Device) (part C) (description "Unpolarized capacitor"))\n \
                                       (sheetpath (names /) (tstamps /))\n \
                                       (tstamp {}))\n'.format(   COMPONENT_COUNT,
                                                                 C_count,

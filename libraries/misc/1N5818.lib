@@ -1,0 +1,18 @@
+*.model 1N5818 D(Is=31.7u Rs=.051 N=1.373 Cjo=160p M=.38 Eg=.69 Xti=2 Iave=1 Vpk=30 mfg=OnSemi type=Schottky)
+
+.SUBCKT 1N5818 1 2
+
+D1 1 2 1N5818
+*
+.MODEL 1N5818 D
++IS=31.7E-6
++RS=.051
++N=1.373
++XTI=2
++EG=0.69
++CJO=160E-12
++M=.38
++Iave=1
++Vpk=30
+.ENDS
+*

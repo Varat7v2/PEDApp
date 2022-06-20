@@ -2,6 +2,9 @@
 <project version="4">
   <component name="VcsDirectoryMappings">
     <mapping directory="$PROJECT_DIR$" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/PySpice Examples/PySpice" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/PySpice Examples/PySpice/ngspice-feedstock" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/PySpice Examples/PySpice/pyspice-feedstock" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/yolor" vcs="Git" />
   </component>
 </project>

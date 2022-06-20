@@ -188,21 +188,21 @@ plt.show()
 # circuit.R(1, 2, circuit.gnd, 1@u_kOhm)
 
 # # ### METHOD 1
-# # # spice_library = SpiceLibrary('/home/varat/Documents/LTspiceXVII/lib/cmp/')
+# # # spice_library = SpiceLibrary('/home/varat/Documents/LTspiceXVII/libraries/cmp/')
 
 # # # libraries_path = find_libraries()
-# # path = '/home/varat/Documents/LTspiceXVII/lib/cmp/standard.dio'
+# # path = '/home/varat/Documents/LTspiceXVII/libraries/cmp/standard.dio'
 # # spice_library = SpiceLibrary(path)
 # # circuit.include(spice_library['1N4148'])
 # # circuit.X('importDiode', '1N4148', 1, 2)
 
 # ### METHOD 2
-# path = '/home/varat/Documents/LTspiceXVII/lib/cmp/standard.dio'
+# path = '/home/varat/Documents/LTspiceXVII/libraries/cmp/standard.dio'
 # circuit.include(path)
 # circuit.X('importDiode', '1N4148', 1, 2)
 
 # # ### METHOD 3
-# # new_line = '.include lib/1N4148.lib'
+# # new_line = '.include libraries/1N4148.libraries'
 # # circuit.raw_spice += new_line + os.linesep
 # # circuit.X('importDiode', '1N4148', 1, 2)
 
@@ -249,7 +249,7 @@ plt.show()
 # C = circuit.C(1, 'n2', circuit.gnd, 1@u_uF)
 
 # circuit.Diode(1, 'n2', 'n3', model='myDiode')
-# # path = 'lib/1N4148.lib'
+# # path = 'libraries/1N4148.libraries'
 # # circuit.include(path)
 # # circuit.X('importDiode', '1N4148', 'n2', 'n3')
 

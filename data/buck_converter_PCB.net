@@ -1,0 +1,12 @@
+(export (version D)
+### FIXED SECTION
+                                ### DESIGN BLOCK
+                                ### LIBRARIES BLOCK
+(libraries
+                                (library (logical Device)
+                                (uri /usr/share/kicad/library/Device.libraries))
+                                (library (logical pspice)
+                                (uri /usr/share/kicad/library/pspice.libraries)))
+### VARIABLE SECTION
+                                ### COMPONENT BLOCK
+(components
