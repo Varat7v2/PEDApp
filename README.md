@@ -9,4 +9,4 @@ This project has been trained on both TensorFlow (SSD MobileNet V2) and PyTorch 
 ## Results
 ![alt text](images/flowchart.png)
 
-[![DEMO: Buck Converter Simulation](https://www.youtube.com/watch?v=4xqlK0iJSaM/0.jpg)](https://www.youtube.com/watch?v=4xqlK0iJSaM)
+[![DEMO: Buck Converter Simulation](https://www.youtube.com/watch?v=4xqlK0iJSaM/0.jpg)](https://www.youtube.com/watch?v=4xqlK0iJSaM "Simulation Output")
