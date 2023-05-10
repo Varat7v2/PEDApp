@@ -10,5 +10,5 @@ This project has been trained on both TensorFlow (SSD MobileNet V2) and PyTorch 
 ![alt text](images/flowchart.png)
 
 <video width="320" height="240" controls>
-  <source src="buck_converter_simulation-2023-05-10_01.04.13.mp4" type="video/mp4">
+  <source src="https://github.com/Varat7v2/PROJECT-ECD/blob/main/buck_converter_simulation-2023-05-10_01.04.13.mp4" type="video/mp4">
 </video>
