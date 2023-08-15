@@ -1,5 +1,5 @@
 ## Instructions to run the project
-Step 1: Clone the project -> `git clone --recursive https://github.com/Varat7v2/PROJECT-ECD.git` \
+Step 1: Clone the project -> `git clone --recursive https://github.com/Varat7v2/PEDApp.git` \
 Step 2: Intsall required packages -> `pip install -r requirements.txt` \
 Step 3: Run the main program ->`python PEDApp_main.py`
 
